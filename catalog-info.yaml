@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: "aws-ec2-crossplane"
+  annotations:
+    github.com/project-slug: arshukla98/aws-ec2-crossplane
+    jenkins.io/job-full-name: "Backstage_AWS_EC2"
+  description: create aws ec2 instance managed by Crossplane
+spec:
+  type: service
+  owner: user:guest
+  lifecycle: experimental
