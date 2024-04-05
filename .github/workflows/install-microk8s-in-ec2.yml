@@ -1,0 +1,42 @@
+name: Install Microk8s in EC2 instance
+
+on:
+  workflow_dispatch:
+    inputs:
+      instancePublicIP:
+        description: 'The public ip of instance'  
+        required: true 
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "greet"
+  greet:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: Set up SSH key
+      run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -t rsa ${{ github.event.inputs.instancePublicIP}} >> ~/.ssh/known_hosts
+    
+    - name: SSH into VM
+      run: |
+          ssh -i ~/.ssh/id_rsa ubuntu@${{ github.event.inputs.instancePublicIP}} ' ls -la'
+
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Copy microk8s bash scripts to VM
+      run: |
+          scp install_microk8s_01.sh ubuntu@${{ github.event.inputs.instancePublicIP }}:/home/ubuntu
+          scp install_microk8s_02.sh ubuntu@${{ github.event.inputs.instancePublicIP }}:/home/ubuntu
+          ssh -i ~/.ssh/id_rsa ubuntu@${{ github.event.inputs.instancePublicIP }} 'ls -la'
+    
+    - name: Execute the microk8s scripts within VM
+      run: |
+           ssh -v -i ~/.ssh/id_rsa ubuntu@${{ github.event.inputs.instancePublicIP }} "bash install_microk8s_01.sh && newgrp microk8s"
+           ssh -v -i ~/.ssh/id_rsa ubuntu@${{ github.event.inputs.instancePublicIP }} "bash install_microk8s_02.sh"
