@@ -1,0 +1,15 @@
+apiVersion: ec2.aws.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  name: sample-instance
+spec:
+  forProvider:
+    region: ap-south-1
+    imageId: ami-007020fd9c84e18c7
+    instanceType: t2.micro
+    keyName: backstage-5F5kD69guSo
+    tags:
+      - key: Name
+        value: "adityaX"
+  providerConfigRef:
+    name: crossplane-provider
