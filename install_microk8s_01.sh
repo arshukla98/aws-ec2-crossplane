@@ -16,14 +16,3 @@ sudo grep microk8s /etc/group
 sudo groups ubuntu
 sudo mkdir -p ~/.kube
 sudo chown -R ubuntu ~/.kube
-
-echo 'Check microk8s status'
-sudo microk8s status --wait-ready
-
-sleep 10
-
-echo 'which microk8s -> ' which microk8s
-
-echo 'PATH -> ' $PATH
-
-sudo microk8s kubectl get nodes
