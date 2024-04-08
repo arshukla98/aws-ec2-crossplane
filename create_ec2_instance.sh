@@ -17,7 +17,7 @@ spec:
       - key: Name
         value: "$vmName"
   providerConfigRef:
-    name: crossplane-provider
+    name: crossplane-provider-config
 EOF
 }
 
