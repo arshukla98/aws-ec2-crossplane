@@ -36,7 +36,7 @@ EOF
 echo "Provider Config created."
 
 # Wait for the Provider Config to be created
-sudo microk8s kubectl wait --timeout=2m --for=condition=Ready providerconfig.aws.crossplane.io/crossplane-provider-config
+sudo microk8s kubectl wait --timeout=2m providerconfig.aws.crossplane.io/crossplane-provider-config
 
 # Get the ProviderConfigs
 sudo microk8s kubectl get providerconfig.aws.crossplane.io
