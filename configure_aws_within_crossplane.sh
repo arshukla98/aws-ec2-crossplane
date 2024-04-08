@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create Crossplane Provider
-cat <<EOF | kubectl apply -f -
+cat <<EOF | sudo microk8s kubectl apply -f -
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
@@ -19,7 +19,7 @@ sudo microk8s kubectl wait --for=condition=Healthy provider.pkg.crossplane.io/cr
 sudo microk8s kubectl get provider.pkg.crossplane.io
 
 # Create Provider Config
-cat <<EOF | kubectl apply -f -
+cat <<EOF | sudo microk8s kubectl apply -f -
 apiVersion: aws.crossplane.io/v1beta1
 kind: ProviderConfig
 metadata:
