@@ -43,6 +43,6 @@ echo "YAML file ec2-instance.yaml has been generated."
 sudo microk8s kubectl create -f ec2-instance.yaml
 
 # Wait for the EC2 Instance to be ready
-sudo microk8s kubectl wait --timeout=5m --for=condition=Synced managed.instance.ec2.aws.crossplane.io/$resourceName
+sudo microk8s kubectl wait --timeout=5m --for=condition=Synced instance.ec2.aws.crossplane.io/$resourceName
 
-sudo microk8s kubectl get managed.instance.ec2.aws.crossplane.io -A
+sudo microk8s kubectl get instances.ec2.aws.crossplane.io -A
