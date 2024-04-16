@@ -7,16 +7,17 @@ kind: Provider
 metadata:
   name: crossplane-provider-aws-3
 spec:
-  package: xpkg.upbound.io/upbound/provider-aws:v1.0.0
+  package: xpkg.upbound.io/upbound/provider-aws:v0.41.0
 EOF
 
 echo "Crossplane AWS Provider created."
 
 # Wait for the Crossplane Provider to be installed
-sudo microk8s kubectl wait --timeout=10m --for=condition=Healthy provider.pkg.crossplane.io/crossplane-provider-aws-3
+sudo microk8s kubectl wait "providers.pkg.crossplane.io/crossplane-provider-aws-3" --for=condition=Installed --timeout=1000s
+sudo microk8s kubectl wait "providers.pkg.crossplane.io/crossplane-provider-aws-3" --for=condition=Healthy --timeout=1000s
 
 # Get the Crossplane Provider
-sudo microk8s kubectl get provider.pkg.crossplane.io
+sudo microk8s kubectl get providers.pkg.crossplane.io
 
 # Create Provider Config
 cat <<EOF | sudo microk8s kubectl apply -f -
