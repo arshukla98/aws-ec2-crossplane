@@ -7,9 +7,41 @@ spec:
     region: ap-south-1
     imageId: ami-007020fd9c84e18c7
     instanceType: t2.micro
-    keyName: backstage-5F5kD69guSo
+    keyName: backstage-5F5kD69guSo # Key Exists
     tags:
       - key: Name
         value: "adityaX"
   providerConfigRef:
     name: crossplane-provider
+
+---
+
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: KeyPair
+metadata:
+  name: example-keypair
+spec:
+  providerConfigRef:
+    name: upbound-provider
+  forProvider:
+    region: ap-south-1
+    publicKey: <add ssh publicKey>
+    tags:
+        Name: backstage-pubKey
+
+---
+
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Instance
+metadata:
+  name: sample-instance
+spec:
+  forProvider:
+    region: ap-south-1
+    ami: ami-007020fd9c84e18c7
+    instanceType: t2.micro
+    keyName: example-keypair
+    tags:
+      Name: "adityaX"
+  providerConfigRef:
+    name: upbound-provider

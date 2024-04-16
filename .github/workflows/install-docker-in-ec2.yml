@@ -34,11 +34,14 @@ jobs:
       run: |
           scp install_docker.sh ubuntu@${{ github.event.inputs.instancePublicIP }}:/home/ubuntu
           ssh -i ~/.ssh/id_rsa ubuntu@${{ github.event.inputs.instancePublicIP }} 'ls -la'
+      working-directory: setup_scripts
     
     - name: Execute the transferred scripts within VM
       run: |
            ssh -v -i ~/.ssh/id_rsa ubuntu@${{ github.event.inputs.instancePublicIP }} 'bash install_docker.sh '
+      working-directory: setup_scripts
 
     - name: View all Docker Containers
       run: |
            ssh -v -i ~/.ssh/id_rsa ubuntu@${{ github.event.inputs.instancePublicIP }} 'sudo docker ps -a'
+      working-directory: setup_scripts

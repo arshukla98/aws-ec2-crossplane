@@ -32,11 +32,11 @@ jobs:
 
     - name: Copy all bash scripts to VM
       run: |
-          scp configure_aws_within_crossplane.sh ubuntu@${{ github.event.inputs.instancePublicIP }}:/home/ubuntu
+          scp configure_aws_within_crossplane_v2.sh ubuntu@${{ github.event.inputs.instancePublicIP }}:/home/ubuntu
           ssh -i ~/.ssh/id_rsa ubuntu@${{ github.event.inputs.instancePublicIP }} 'ls -la'
     
     - name: Execute the transferred scripts within VM
       run: |
-           ssh -i ~/.ssh/id_rsa ubuntu@${{ github.event.inputs.instancePublicIP }} "bash -s" < configure_aws_within_crossplane.sh
+           ssh -i ~/.ssh/id_rsa ubuntu@${{ github.event.inputs.instancePublicIP }} "bash -s" < configure_aws_within_crossplane_v2.sh
 
         

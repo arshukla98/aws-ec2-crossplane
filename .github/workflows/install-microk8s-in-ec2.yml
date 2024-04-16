@@ -35,8 +35,10 @@ jobs:
           scp install_microk8s_01.sh ubuntu@${{ github.event.inputs.instancePublicIP }}:/home/ubuntu
           scp install_microk8s_02.sh ubuntu@${{ github.event.inputs.instancePublicIP }}:/home/ubuntu
           ssh -i ~/.ssh/id_rsa ubuntu@${{ github.event.inputs.instancePublicIP }} 'ls -la'
+      working-directory: setup_scripts
     
     - name: Execute the microk8s scripts within VM
       run: |
            ssh -v -i ~/.ssh/id_rsa ubuntu@${{ github.event.inputs.instancePublicIP }} "bash install_microk8s_01.sh && newgrp microk8s"
            ssh -v -i ~/.ssh/id_rsa ubuntu@${{ github.event.inputs.instancePublicIP }} "bash install_microk8s_02.sh"
+      working-directory: setup_scripts

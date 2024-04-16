@@ -1,6 +1,0 @@
-apiVersion: pkg.crossplane.io/v1
-kind: Provider
-metadata:
-  name: crossplane-provider-aws-1
-spec:
-  package: crossplane-contrib/provider-aws:v0.47.1

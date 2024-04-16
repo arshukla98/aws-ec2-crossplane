@@ -35,8 +35,10 @@ jobs:
           scp install_helm.sh ubuntu@${{ github.event.inputs.instancePublicIP }}:/home/ubuntu
           scp setup_crossplane.sh ubuntu@${{ github.event.inputs.instancePublicIP }}:/home/ubuntu
           ssh -i ~/.ssh/id_rsa ubuntu@${{ github.event.inputs.instancePublicIP }} 'ls -la'
+      working-directory: setup_scripts
     
     - name: Execute the transferred scripts within VM
       run: |
            ssh -v -i ~/.ssh/id_rsa ubuntu@${{ github.event.inputs.instancePublicIP }} 'bash install_helm.sh'
            ssh -v -i ~/.ssh/id_rsa ubuntu@${{ github.event.inputs.instancePublicIP }} 'bash setup_crossplane.sh'
+      working-directory: setup_scripts
