@@ -21,10 +21,6 @@ on:
       vmName:
         description: 'The Name of EC2 instance'
         required: true
-      resourceName:
-        description: 'The ResourceName for Crossplane'
-        required: true
-
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -56,7 +52,7 @@ jobs:
     
     - name: Execute the transferred script within VM
       run: |
-           ssh -i ~/.ssh/id_rsa ubuntu@${{ github.event.inputs.instancePublicIP }} "bash -s" < create_ec2_instance_v1.sh ${{ github.event.inputs.imageID }} ${{ github.event.inputs.instanceType }} ${{ github.event.inputs.region }} ${{ github.event.inputs.keyName }} ${{ github.event.inputs.vmName }} ${{ github.event.inputs.resourceName }}
+           ssh -i ~/.ssh/id_rsa ubuntu@${{ github.event.inputs.instancePublicIP }} "bash -s" < create_ec2_instance_v1.sh ${{ github.event.inputs.imageID }} ${{ github.event.inputs.instanceType }} ${{ github.event.inputs.region }} ${{ github.event.inputs.keyName }} ${{ github.event.inputs.vmName }}
 
     - name: Upload Instance Info
       uses: actions/upload-artifact@v4
