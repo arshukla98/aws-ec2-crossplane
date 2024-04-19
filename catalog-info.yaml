@@ -8,5 +8,5 @@ metadata:
   description: create aws ec2 instance managed by Crossplane
 spec:
   type: service
-  owner: user:guest
+  owner: user:arshukla98
   lifecycle: experimental
